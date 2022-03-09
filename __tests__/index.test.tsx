@@ -10,7 +10,7 @@ import Home from "../pages/index";
 // TODO setup your mock api here
 const server = setupServer(
   rest.get("/api/list", (req, res, ctx) => {
-    return res(ctx.json({title: "Test the program 🧪"}));
+    return res(ctx.json([{ title: "Test the program 🧪"}]));
   })
 );
 
@@ -23,7 +23,7 @@ describe("📝 TODO app", () => {
   it('should display loading if response is not correct', async () => {
     server.use(
       rest.get('/api/list', (req, res, ctx) => {
-        return res(ctx.json(null))
+        return res(ctx.json(null)) // Not valid response
       }),
     )
       
@@ -33,4 +33,11 @@ describe("📝 TODO app", () => {
 
     expect(screen.getByTestId("loading")).toBeDefined()
   })
-});
+
+  it('should have a single todo item when component is loaded', async () => {
+    render(<Home />);
+    await waitFor(() => screen.getByTestId("todo-item"))
+
+    expect(screen.getAllByTestId("todo-item")).toHaveLength(1);
+  });
+})
