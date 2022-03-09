@@ -21,5 +21,13 @@ describe("📝 TODO app", () => {
     cy.get('[data-testid=todo-item]').should('have.length', 1)
     cy.get('[data-testid=todo-item]').last().should('have.text', newItem)
   })
+
+  it('Should add another todo item on the list when submitted', () => {
+    const newItem = 'Play guitar 🎸'
+
+    cy.get('[data-testid=todo-input]').type(`${newItem}{enter}`)
+    cy.get('[data-testid=todo-item]').should('have.length', 2)
+    cy.get('[data-testid=todo-item]').last().should('have.text', newItem)
+  })
 })
 
