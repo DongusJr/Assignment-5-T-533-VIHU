@@ -29,5 +29,10 @@ describe("📝 TODO app", () => {
     cy.get('[data-testid=todo-item]').should('have.length', 2)
     cy.get('[data-testid=todo-item]').last().should('have.text', newItem)
   })
+
+  it('Should remove one item from the list', () => {
+    cy.get('[data-testid=todo-item]').first().click()
+    cy.get('[data-testid=todo-item]').should('have.length', 1)
+  })
 })
 
