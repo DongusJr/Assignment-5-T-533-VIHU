@@ -76,7 +76,7 @@ describe("📝 TODO app", () => {
 
     // Check if the new item has been added
     await waitFor(() => expect(screen.getAllByTestId("todo-item")).toHaveLength(2))
-    expect(screen.getAllByTestId("todo-item").slice(-1)[0]).toHaveTextContent("Something else we did not expect")
+    expect(screen.getAllByTestId("todo-item").slice(-1)[0]).toHaveTextContent(newTodo)
 
   });
 

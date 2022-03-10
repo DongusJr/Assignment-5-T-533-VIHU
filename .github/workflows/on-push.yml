@@ -34,6 +34,18 @@ jobs:
           wait-on: http://localhost:3000
           wait-on-timeout: 120
           command: npm run test:e2e
+
+      - uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+
+      - uses: actions/upload-artifacts@v2
+        if: always()
+        with:
+          name: cypress-videos
+          path: cypress/videos
           
   ui-test:
     name: 🐙 React-Testing-Library run
