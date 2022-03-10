@@ -27,7 +27,7 @@ describe("📝 TODO app", () => {
 
     cy.get('[data-testid=todo-input]').type(`${newItem}{enter}`)
     cy.get('[data-testid=todo-item]').should('have.length', 2)
-    cy.get('[data-testid=todo-item]').last().should('have.text', 'Not the text we would expect')
+    cy.get('[data-testid=todo-item]').last().should('have.text', newItem)
   })
 
   it('Should remove one item from the list', () => {
