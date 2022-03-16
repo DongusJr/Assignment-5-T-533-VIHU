@@ -33,7 +33,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags:  bjarkism/${{ env.IMAGE_NAME}}:${{ github.sha }}
+          tags:  ${{ secrets.DOCKERHUB_USERNAME}}/${{ env.IMAGE_NAME}}:${{ github.sha }}
           
       # install doctl (digital ocean command line tool), with a digital ocean access token
           
@@ -48,7 +48,7 @@ jobs:
         uses: datamonsters/replace-action@v1
         with:
           files: 'deployment.yaml'
-          replacements: '$IMAGE=bjarkism/${{env.IMAGE_NAME}}:${{ github.sha }}'
+          replacements: '$IMAGE=${{ secrets.DOCKERHUB_USERNAME}}/${{env.IMAGE_NAME}}:${{ github.sha }}'
         
       # Sets the correct kubeconfig
         
