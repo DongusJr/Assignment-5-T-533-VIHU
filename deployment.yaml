@@ -15,7 +15,7 @@ spec:
         version: v1
     spec:
       containers:
-      - image: bjarkism/assignment-6:todo-app
+      - image: $IMAGE
         imagePullPolicy: Always
         name: todo-app
         ports:
