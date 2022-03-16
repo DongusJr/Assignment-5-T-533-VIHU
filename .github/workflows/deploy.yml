@@ -19,9 +19,6 @@ jobs:
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
-
-      - name: Build container image
-        run: docker build -t
           
       - name: Login to DockerHub
         uses: docker/login-action@v1 
