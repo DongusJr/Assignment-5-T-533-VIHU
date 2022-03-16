@@ -19,7 +19,9 @@ jobs:
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
-          
+      
+      # Build and push a docker image either to docker hub
+      
       - name: Login to DockerHub
         uses: docker/login-action@v1 
         with:
@@ -32,21 +34,35 @@ jobs:
           push: true
           tags:  ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME}}:${{ github.sha }}
           
-      # Mega hax
+      # install doctl (digital ocean command line tool), with a digital ocean access token
+          
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+        
+      # Updates a deployment file with the correct image
+
       - name: Replace image in yaml
         uses: datamonsters/replace-action@v1
         with:
           files: 'deployment.yaml'
           replacements: '$IMAGE=${{ secrets.DOCKER_USERNAME }}/${{env.IMAGE_NAME}}:${{ github.sha }}'
         
+      # Sets the correct kubeconfig
+        
       - name: Save DigitalOcean kubeconfig
         run: doctl kubernetes cluster kubeconfig save $CLUSTER_NAME
         env:
           CLUSTER_NAME: ${{ secrets.CLUSTER_NAME }}
           
+      # Deploys the updated deployment file to that cluster
+          
       - name: Deploy Kubernetes
         run: kubectl apply -f deployment.yml
         
+      # Verifies the deployment
+      
       - name: Verify deployment
         run: kubectl rollout status deployment/$(echo $IMAGE_NAME)
       
