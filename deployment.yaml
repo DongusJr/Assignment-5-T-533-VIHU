@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todo-app
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: todo-app
+        version: v1
+    spec:
+      containers:
+      - image: bjarkism/assignment-6:todo-app
+        imagePullPolicy: Always
+        name: todo-app
+        ports:
+          - containerPort: 3000
