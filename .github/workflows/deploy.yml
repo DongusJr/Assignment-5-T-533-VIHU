@@ -30,7 +30,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags:  ${{ secrets.DOCKER_USERNAME }}/$(echo $IMAGE_NAME):${{ github.sha }}
+          tags:  ${{ secrets.DOCKER_USERNAME }}/$(echo '$IMAGE_NAME'):${{ github.sha }}
           
       # Mega hax
       - name: Replace image in yaml
