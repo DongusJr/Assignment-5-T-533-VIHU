@@ -10,6 +10,7 @@ on:
 
 env:
   IMAGE_NAME: "assignment-6"
+  DEP_NAME: "todo-app"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -64,7 +65,7 @@ jobs:
       # Verifies the deployment
       
       - name: Verify deployment
-        run: kubectl rollout status deployment/$(echo $IMAGE_NAME)
+        run: kubectl rollout status deployment/$(echo $DEP_NAME)
       
           
       
